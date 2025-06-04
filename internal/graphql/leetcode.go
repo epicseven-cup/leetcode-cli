@@ -3,7 +3,6 @@ package graphql
 import (
 	"bytes"
 	"encoding/json"
-	"fmt"
 	"io"
 	"net/http"
 )
@@ -49,7 +48,6 @@ func (lc *Leetcode) GetDaily() (*DailyCodingChallenge, error) {
 	data := &Data{
 		Query: "query " + q,
 	}
-	fmt.Println(q)
 
 	jsonData, err := json.Marshal(data)
 	if err != nil {

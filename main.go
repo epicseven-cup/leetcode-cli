@@ -35,25 +35,18 @@ func main() {
 			os.Exit(1)
 		}
 
-		index := strings.LastIndex(tp, "/")
-		folderName := tp[index : len(tp)-4]
-
-		err = exec.Command("git", "clone", tp).Run()
-		if err != nil {
-			fmt.Println(err)
-			os.Exit(1)
-		}
-
 		problemFolder := fmt.Sprintf("./%s-%s", daily.Data.ActiveDailyCodingChallengeQuestion.Question.QuestionFrontendID, strings.Replace(daily.Data.ActiveDailyCodingChallengeQuestion.Question.Title, " ", "_", -1))
 
-		err = exec.Command("mv", fmt.Sprintf("./%s/", folderName), problemFolder).Run()
+		err = exec.Command("git", "clone", tp, problemFolder).Run()
 
 		if err != nil {
 			fmt.Println(err)
 			os.Exit(1)
 		}
 
+		// Change Dir into that folder
 		err = os.Chdir(problemFolder)
+
 		if err != nil {
 			fmt.Println(err)
 			os.Exit(1)
