@@ -17,6 +17,10 @@ For example, for this project the github url endpoint will be `github.com/epicse
 
 So when you will need to run `go mod init github.com/epicseven-cup/go-cli-template`
 
+```bash
+./main| pandoc -f html -t markdown | glow
+```
+
 
 # Binary download
 
