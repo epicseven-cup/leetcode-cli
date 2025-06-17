@@ -11,6 +11,7 @@ import (
 
 var templates = map[string]string{
 	"python": "https://github.com/epicseven-cup/Leetcode-template-python.git",
+	"go":     "https://github.com/epicseven-cup/leetcode-go-template.git",
 }
 
 func main() {
@@ -68,6 +69,12 @@ func main() {
 
 		case "python":
 			err := utils.PythonTemplate(daily)
+			if err != nil {
+				fmt.Println(err)
+				os.Exit(1)
+			}
+		case "go":
+			err := utils.GoTemplate(daily)
 			if err != nil {
 				fmt.Println(err)
 				os.Exit(1)
