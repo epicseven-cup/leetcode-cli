@@ -43,18 +43,18 @@ func main() {
 		}
 
 		switch args[1] {
-			case "python":
-				err := utils.TemplateCode(daily, "python", "solution.py")
-				if err != nil {
-					fmt.Println(err)
-					os.Exit(1)
-				}
-			case "go":
-				err := utils.TemplateCode(daily, "golang", "./problem/solution.go")
-				if err != nil {
-					fmt.Println(err)
-					os.Exit(1)
-				}
+		case "python":
+			err := utils.TemplateCode(daily, "python", "solution.py", os.O_WRONLY|os.O_CREATE)
+			if err != nil {
+				fmt.Println(err)
+				os.Exit(1)
+			}
+		case "go":
+			err := utils.TemplateCode(daily, "golang", "./problem/solution.go", os.O_APPEND|os.O_WRONLY)
+			if err != nil {
+				fmt.Println(err)
+				os.Exit(1)
+			}
 		}
 
 		os.Exit(0)

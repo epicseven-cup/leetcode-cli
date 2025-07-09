@@ -1,23 +1,23 @@
 package utils
 
 import (
+	"fmt"
 	"github.com/epicseven-cup/leetcode-cli/internal/graphql"
 	"os"
-	"fmt"
-	"strings"
 	"os/exec"
+	"strings"
 	"time"
 )
 
-func CreateDailyFolder(daily *graphql.DailyCodingChallenge, gitHubTemplate string) error {
-	problemFolder := fmt.Sprintf("./[%s]-[%s]-[%s]",
+func CreateDailyFolder(daily *graphql.DailyCodingChallenge, gitHubTemplate string, lang string) error {
+	problemFolder := fmt.Sprintf("./[%s]-[%s]-[%s]-[%s]",
 		time.Now().Format(time.DateOnly),
 
 		daily.Data.ActiveDailyCodingChallengeQuestion.Question.QuestionFrontendID,
 
 		strings.ReplaceAll(daily.Data.ActiveDailyCodingChallengeQuestion.Question.Title,
-		" ", "_"),
-
+			" ", "_"),
+		lang,
 	)
 
 	err := exec.Command("git", "clone", gitHubTemplate, problemFolder).Run()
@@ -47,10 +47,14 @@ func CreateDailyFolder(daily *graphql.DailyCodingChallenge, gitHubTemplate strin
 	return nil
 }
 
-func TemplateCode(lc *graphql.DailyCodingChallenge, langSlug string, filePath string) error {
+func TemplateCode(lc *graphql.DailyCodingChallenge, langSlug string, filePath string, options int) error {
+	file, err := os.OpenFile(filePath, options, 0666)
+	if err != nil {
+		return err
+	}
 	for _, c := range lc.Data.ActiveDailyCodingChallengeQuestion.Question.CodeSnippets {
 		if c.LangSlug == langSlug {
-			err := os.WriteFile(filePath, []byte(c.Code), 0677)
+			_, err := file.Write([]byte(c.Code))
 			if err != nil {
 				return err
 			}
@@ -59,5 +63,3 @@ func TemplateCode(lc *graphql.DailyCodingChallenge, langSlug string, filePath st
 	}
 	return nil
 }
-
-
