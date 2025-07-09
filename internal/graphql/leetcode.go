@@ -7,7 +7,7 @@ import (
 	"net/http"
 )
 
-type Leetcode struct {
+type LeetcodeClient struct {
 	//TODO: internal information that will need to be storage
 }
 
@@ -19,7 +19,7 @@ type Data struct {
 	Query string `json:"query"`
 }
 
-func (lc *Leetcode) GetDaily() (*DailyCodingChallenge, error) {
+func (lc *LeetcodeClient) GetDaily() (*DailyCodingChallenge, error) {
 	query := NewQuery("questionOfTodayV2")
 
 	activeDailyCodingChallengeQuestionQuery := NewQuery("activeDailyCodingChallengeQuestion")
@@ -77,3 +77,7 @@ func (lc *Leetcode) GetDaily() (*DailyCodingChallenge, error) {
 
 	return &dailyQuestion, nil
 }
+
+
+// Random, gives a random leetcode problem with the project setup
+func Random(){}
