@@ -35,7 +35,7 @@ func main() {
 			os.Exit(1)
 		}
 
-		err = utils.CreateDailyFolder(daily, repo)
+		err = utils.CreateDailyFolder(daily, repo, args[1])
 
 		if err != nil {
 			fmt.Println(err)
